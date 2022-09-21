@@ -4,7 +4,7 @@
 @section('content')
     <div class="container text-center mt-3">
         <h2>{{ $post->title }}</h2>
-        <p class="p-3">{{ $post->author }}</p>
+        <p class="p-3">{{ $post->user->name }}</p>
         <div>
             <img src="{{ $post->thumb }}" alt="">
         </div>

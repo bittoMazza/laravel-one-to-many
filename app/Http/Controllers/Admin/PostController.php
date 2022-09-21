@@ -3,8 +3,11 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Model\Category;
 use App\Model\Post;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Symfony\Component\VarDumper\Cloner\Data;
 
 use function GuzzleHttp\Promise\all;
 
@@ -14,7 +17,6 @@ class PostController extends Controller
     protected $validationRules = [
                     
         'title' => 'required|min:5|max:255',
-        'author' => 'required|min:3',
         'thumb' => 'required|url',
         'post_content' => 'required|min:3|max:200'  
     ];
@@ -25,7 +27,7 @@ class PostController extends Controller
      */
     public function index()
     {
-        $posts = Post::all();
+        $posts = Auth::user()->posts;
         return view ('admin.posts.index', compact('posts'));
     }
 
@@ -36,8 +38,9 @@ class PostController extends Controller
      */
     public function create()
     {
+        $categories = Category::all();
         $post = new Post();
-        return view('admin.posts.create',compact('post'));
+        return view('admin.posts.create',compact('post','categories'));
     }
 
     /**
@@ -49,10 +52,12 @@ class PostController extends Controller
     public function store(Request $request)
     {
         $data = $request->all();
-
+        
         $validatedData = $request->validate($this->validationRules); 
 
         $post = new Post();
+
+        $data['user_id'] = Auth::user()->id;
 
         $data['post_date'] = date('Y-m-d H:i:s');
 
@@ -81,8 +86,9 @@ class PostController extends Controller
      */
     public function edit($id)
     {
+        $categories = Category::all();
         $post = Post::findOrFail($id);
-        return view('admin.posts.edit',compact('post'));
+        return view('admin.posts.edit',compact('post','categories'));
     }
 
     /**

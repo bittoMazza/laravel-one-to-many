@@ -20,6 +20,14 @@
 </div>
 @enderror
 
+<select type="text" name="category_id" id="">
+    @foreach ($categories as  $category)
+        <option value="{{ $category->id }}">
+            {{ $category->name }}
+        </option>
+    @endforeach
+</select>
+
 <div class="form-group">
     <label class="text-light">IMMAGINE POST</label>
     <input type="text" class="form-control" value="{{ old('thumb',$post->thumb) }}" name="thumb" placeholder="Inserire immagine" required>

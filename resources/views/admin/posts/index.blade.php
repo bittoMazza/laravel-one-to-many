@@ -33,7 +33,10 @@
                     <td>{{ $post->thumb }}</td>
                     <td>{{ $post->post_date }}</td>
                     <td>{{ $post->post_content }}</td>
+                    @isset($post->category)
                     <td><span class="p-1 rounded" style="background-color:{{ $post->category->color }} ">{{ $post->category->name }}</span></td>
+                    @endisset
+                   
                     <td>
                       <div class="d-flex">
                         <a href="{{ route('admin.posts.edit',$post->id) }}" class="btn btn-warning me-2">Edit</a>
