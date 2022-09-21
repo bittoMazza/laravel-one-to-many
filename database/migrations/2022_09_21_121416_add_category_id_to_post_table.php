@@ -14,8 +14,7 @@ class AddCategoryIdToPostTable extends Migration
     public function up()
     {
         Schema::table('posts', function (Blueprint $table) {
-            $table->unsignedMediumInteger('category_id')->after('id');
-
+            $table->unsignedMediumInteger('category_id');
             $table->foreign('category_id')->references('id')->on('categories');
         });
     }
@@ -28,6 +27,7 @@ class AddCategoryIdToPostTable extends Migration
     public function down()
     {
         Schema::table('posts', function (Blueprint $table) {
+            $table->dropForeign('post_category_id_foreign');
             $table->dropColumn('category_id');
         });
     }
