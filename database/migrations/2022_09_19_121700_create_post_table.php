@@ -15,8 +15,14 @@ class CreatePostTable extends Migration
     {
         Schema::create('posts', function (Blueprint $table) {
             $table->id();
+
+            /* $table->unsignedMediumInteger('category_id'); */
+            $table->foreignId('category_id')->references('id')->on('categories');
+
+            /* $table->unsignedMediumInteger('user_id'); */
+            $table->foreignId('user_id')->references('id')->on('users');
+
             $table->string('title');
-            $table->string('author');
             $table->text('thumb')->nullable();
             $table->dateTime('post_date');
             $table->text('post_content');

@@ -29,7 +29,7 @@
             @foreach ($posts as $post)
                 <tr>
                     <td><a href="{{ route('admin.posts.show',$post->id) }}">{{ $post->title }}</a></td>
-                    <td>{{ $post->author }}</td>
+                    <td>{{ $post->user->name }}</td>
                     <td>{{ $post->thumb }}</td>
                     <td>{{ $post->post_date }}</td>
                     <td>{{ $post->post_content }}</td>
